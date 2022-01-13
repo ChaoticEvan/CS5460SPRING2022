@@ -1,8 +1,19 @@
-main: main.o assignment1.o
-	gcc -o main main.o assignment1.o -lm
+SRCS = main.c assignment1.c
+TARG = assignment1
+CC = gcc
+OPTS = -ggdb -O2 -std=c11 -Wall -Werror -pedantic -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-sanitize-recover
+LIBS = -lm
 
-main.o: main.c
-	gcc -ggdb -O2 -std=c11 -Wall -Werror -pedantic -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-sanitize-recover -c main.c -o main.o
+# This translates SRCS from .c to .o files
+OBJS = $(SRCS:.c=.o)
 
-assignment1.o: assignment1.c
-	gcc -ggdb -O2 -std=c11 -Wall -Werror -pedantic -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-sanitize-recover -c assignment1.c -o assignment1.o
+all: $(TARG)
+
+$(TARG): $(OBJS)
+	$(CC) -o $(TARG) $(OBJS) $(LIBS)
+
+%.o: %.c
+	$(CC) $(OPTS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS) $(TARG)
