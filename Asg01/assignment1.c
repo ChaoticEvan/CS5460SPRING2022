@@ -8,12 +8,6 @@
 #include <sys/syscall.h> 
 #include <unistd.h>
 
-int main (void) {
-    byte_sort(0x0403deadbeef0201);
-    return 0;
-}
-
-
 uint64_t byte_sort(uint64_t arg) {
     uint8_t firstByte = (arg) & 0xff;
     uint8_t secondByte = (arg >> 8) & 0xff;
