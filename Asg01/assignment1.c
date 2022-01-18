@@ -79,7 +79,28 @@ uint64_t nibble_sort(uint64_t arg) {
 }
 
 struct elt* str_to_list(const char* str) {
-    return 0;
+    char currChar = str[0];
+    int size = 1;
+    while (currChar != '\0')
+    {
+        currChar = str[size];        
+        ++size;        
+    }
+    
+    // Decrement size counter for ending character
+    --size;
+
+    int i;
+    struct elt* next = NULL;
+    struct elt* curr;
+    for(i = size - 1; i >= 0; --i)
+    {
+        curr = malloc(sizeof(struct elt));
+        curr->val = str[i];
+        curr->link = next;
+        next = curr;
+    }    
+    return curr;
 }
 
 void convert(enum format_t mode, uint64_t value) {
