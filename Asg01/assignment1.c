@@ -96,6 +96,12 @@ struct elt* str_to_list(const char* str) {
     for(i = size - 1; i >= 0; --i)
     {
         curr = malloc(sizeof(struct elt));
+        if (curr == NULL)
+        {
+            free(curr);
+            free(next);
+            return NULL;
+        }
         curr->val = str[i];
         curr->link = next;
         next = curr;
