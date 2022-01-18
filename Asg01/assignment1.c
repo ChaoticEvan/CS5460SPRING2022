@@ -16,7 +16,7 @@ void reverse_bubble_sort(volatile int * arr, int n)
     {
         for(j = 0; j < n-i-1; j++)
         {
-            if(arr[j] < arr[j+1])
+            if(arr[j] > arr[j+1])
             {
                 int temp = arr[j];
                 arr[j] = arr[j+1];
@@ -39,8 +39,16 @@ uint64_t byte_sort(uint64_t arg) {
     bytes[7] = (arg >> 56) & 0xff;
     
     reverse_bubble_sort(bytes, 8);
+    uint64_t value =  (uint64_t)(bytes[0]) | 
+    (uint64_t)(bytes[1]) << 8  |          
+    (uint64_t)(bytes[2]) << 16 |          
+    (uint64_t)(bytes[3]) << 24 |          
+    (uint64_t)(bytes[4]) << 32 |          
+    (uint64_t)(bytes[5]) << 40 |          
+    (uint64_t)(bytes[6]) << 48 |          
+    (uint64_t)(bytes[7]) << 56;           
 
-    return (uint64_t) *bytes;
+    return value;
 }
 
 uint64_t nibble_sort(uint64_t arg) {
