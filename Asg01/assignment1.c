@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include "assignment1.h"
 
-void bubble_sort(int arr[], int n)
+void reverse_bubble_sort(volatile int * arr, int n)
 {
     int i;
     int j;
@@ -16,7 +16,7 @@ void bubble_sort(int arr[], int n)
     {
         for(j = 0; j < n-i-1; j++)
         {
-            if(arr[j] > arr[j+1])
+            if(arr[j] < arr[j+1])
             {
                 int temp = arr[j];
                 arr[j] = arr[j+1];
@@ -27,7 +27,7 @@ void bubble_sort(int arr[], int n)
 }
 
 uint64_t byte_sort(uint64_t arg) {
-    int bytes[8];    
+    volatile int bytes[8];    
     
     bytes[0] = (arg) & 0xff;
     bytes[1] = (arg >> 8) & 0xff;
@@ -38,7 +38,7 @@ uint64_t byte_sort(uint64_t arg) {
     bytes[6] = (arg >> 48) & 0xff;
     bytes[7] = (arg >> 56) & 0xff;
     
-    bubble_sort(bytes, 8);
+    reverse_bubble_sort(bytes, 8);
 
     return (uint64_t) *bytes;
 }

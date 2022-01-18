@@ -8,6 +8,5 @@
 
 int main(void) {
     uint64_t var = byte_sort(0x0403deadbeef0201);
-    printf("%" PRIu64 "\n", var);
     return (int) var;
 }
