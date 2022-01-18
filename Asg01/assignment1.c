@@ -28,15 +28,11 @@ void reverse_bubble_sort(int * arr, int n)
 
 uint64_t byte_sort(uint64_t arg) {
     int bytes[8];    
-    
-    bytes[0] = (arg) & 0xff;
-    bytes[1] = (arg >> 8) & 0xff;
-    bytes[2] = (arg >> 16) & 0xff;
-    bytes[3] = (arg >> 24) & 0xff;
-    bytes[4] = (arg >> 32) & 0xff;
-    bytes[5] = (arg >> 40) & 0xff;
-    bytes[6] = (arg >> 48) & 0xff;
-    bytes[7] = (arg >> 56) & 0xff;
+    int i;
+    for(i = 0; i < 8; ++i)
+    {
+        bytes[i] = (arg >> i*8) & 0xff; 
+    }
     
     reverse_bubble_sort(bytes, 8);
     uint64_t value =  (uint64_t)(bytes[0]) | 
