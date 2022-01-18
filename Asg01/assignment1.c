@@ -35,6 +35,8 @@ uint64_t byte_sort(uint64_t arg) {
     }
     
     bubble_sort(bytes, 8);
+
+    // Build resulting value
     uint64_t value =  (uint64_t)(bytes[0]) | 
         (uint64_t)(bytes[1]) << 8  |          
         (uint64_t)(bytes[2]) << 16 |          
@@ -58,6 +60,7 @@ uint64_t nibble_sort(uint64_t arg) {
 
     bubble_sort(nums, 16);
 
+    // Build resulting value
     uint64_t value = (uint64_t)(nums[0]) |
         (uint64_t)(nums[1]) << 4 |
         (uint64_t)(nums[2]) << 8 |
@@ -79,6 +82,11 @@ uint64_t nibble_sort(uint64_t arg) {
 }
 
 struct elt* str_to_list(const char* str) {
+
+    // Manually get the size of char array
+    //
+    // Not using strlen as assignment specifies.
+    // Need the length so we can build the linked list backwards
     char currChar = str[0];
     int size = 1;
     while (currChar != '\0')
@@ -96,6 +104,9 @@ struct elt* str_to_list(const char* str) {
     for(i = size - 1; i >= 0; --i)
     {
         curr = malloc(sizeof(struct elt));
+        
+        // If malloc fails, it will return NULL, so
+        // free memory and return NULL as assignment specification states
         if (curr == NULL)
         {
             free(curr);
