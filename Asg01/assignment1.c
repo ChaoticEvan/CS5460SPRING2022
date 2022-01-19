@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include "assignment1.h"
 
+// Helper method for sorting arrays
 void bubble_sort(int * arr, int n)
 {
     int i;
@@ -120,8 +121,104 @@ struct elt* str_to_list(const char* str) {
     return curr;
 }
 
-void convert(enum format_t mode, uint64_t value) {
+char * convert_hex(uint64_t value)
+{
+    int arr[16];
+    int i;    
+    for(i = 0; i < 16; ++i)
+    {
+        int result = value / 16;
+        int remainder = value % 16;
+        arr[i] = remainder;
+        if(result == 0)
+        {
+            break;
+        }
+    }
+    ++i;
+    for(; i < 16; ++i)
+    {
+        arr[i] = 0;        
+    }
+    char result[16];
+    for(i = 0; i < 16; ++i)
+    {
+        switch(arr[i])
+        {
+            case 0:
+                result[i] = '0';
+                break;
+            case 1:
+                result[i] = '1';
+                break;
+            case 2:
+                result[i] = '2';
+                break;
+            case 3:
+                result[i] = '3';
+                break;
+            case 4:
+                result[i] = '4';
+                break;
+            case 5:
+                result[i] = '5';
+                break;
+            case 6:
+                result[i] = '6';
+                break;
+            case 7:
+                result[i] = '7';
+                break;
+            case 8:
+                result[i] = '8';
+                break;
+            case 9:
+                result[i] = '9';
+                break;
+            case 10:
+                result[i] = 'a';
+                break;
+            case 11:
+                result[i] = 'b';
+                break;
+            case 12:
+                result[i] = 'c';
+                break;
+            case 13:
+                result[i] = 'd';
+                break;
+            case 14:
+                result[i] = 'e';
+                break;
+            case 15:
+                result[i] = 'f';
+                break;
+        }
+    }
+    return result;
+}
 
+void convert(enum format_t mode, uint64_t value) {
+    switch(mode)
+    {
+        case HEX:
+            char * result = convert_hex(value);
+            int i;
+            for(i = 0; i < 16; ++i)
+            {
+                putc(result[i], stdout);
+            }
+            return;
+        case OCT:
+            printf("oct");
+            return;
+        case BIN:
+            printf("bin");
+            return;
+        default:
+            return;
+    }
+    putc('\n', stdout);
 }
 
 void draw_u(void) {

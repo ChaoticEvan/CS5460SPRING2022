@@ -8,11 +8,15 @@
 #include "assignment1.h"
 
 int main(void) {
+    // Testing byte sort
     uint64_t byteSort = byte_sort(0x0403deadbeef0201);
     assert(byteSort == (uint64_t) 0xefdebead04030201);
+
+    // Testing nibble sort
     uint64_t nibbleSort = nibble_sort(0x0403deadbeef0201);
     assert(nibbleSort == (uint64_t)0xfeeeddba43210000);
 
+    // Testing strtolist
     char strTest[5] = {'h', 'e', 'l', 'p', '\0'};
     struct elt* strToList = str_to_list(strTest);
     assert(strToList->val == 'h');
@@ -24,6 +28,8 @@ int main(void) {
     free(strToList->link->link);
     free(strToList->link);
     free(strToList);
+
+    convert(HEX, 8);
 
     return 0;
 }

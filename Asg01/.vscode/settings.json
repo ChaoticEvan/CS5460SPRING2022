@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "assignment1.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "cmath": "c"
     }
 }
