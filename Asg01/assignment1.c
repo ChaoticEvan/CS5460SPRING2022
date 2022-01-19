@@ -140,7 +140,7 @@ char * convert_hex(uint64_t value)
     {
         arr[i] = 0;        
     }
-    char result[16];
+    char *result = malloc(16 * sizeof(char));
     for(i = 0; i < 16; ++i)
     {
         switch(arr[i])
@@ -199,24 +199,33 @@ char * convert_hex(uint64_t value)
 }
 
 void convert(enum format_t mode, uint64_t value) {
-    switch(mode)
-    {
-        case HEX:
-            char * result = convert_hex(value);
-            int i;
-            for(i = 0; i < 16; ++i)
-            {
-                putc(result[i], stdout);
-            }
-            return;
-        case OCT:
-            printf("oct");
-            return;
-        case BIN:
-            printf("bin");
-            return;
-        default:
-            return;
+    // switch(mode)
+    // {
+    //     case HEX:
+    //         char *testName = convert_hex(value);
+    //         int i;
+    //         for(i = 0; i < 16; ++i)
+    //         {
+    //             putc(testName[i], stdout);
+    //         }
+    //         return;
+    //     case OCT:
+    //         printf("oct");
+    //         return;
+    //     case BIN:
+    //         printf("bin");
+    //         return;
+    //     default:
+    //         return;
+    // }
+    if(mode == HEX) {
+        char *hexNum = convert_hex(value);
+        int i = 15;
+        for(; i >= 0; --i)
+        {
+            putc(hexNum[i], stdout);
+        }
+        free(hexNum);
     }
     putc('\n', stdout);
 }

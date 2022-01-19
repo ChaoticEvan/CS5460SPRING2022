@@ -29,7 +29,7 @@ int main(void) {
     free(strToList->link);
     free(strToList);
 
-    convert(HEX, 8);
+    convert(HEX, 7562);
 
     return 0;
 }
