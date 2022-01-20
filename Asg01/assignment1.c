@@ -361,5 +361,7 @@ void draw_u(void) {
         // error occured
         // clean up stuff
     }
-    syscall(SYS_write, fd, "hello, world!\n", 14);
+    syscall(SYS_write, fd, "| |\n", 4);
+    syscall(SYS_write, fd, "| |\n", 4);
+    syscall(SYS_write, fd, "___", 3);
 }
