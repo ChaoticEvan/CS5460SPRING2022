@@ -124,7 +124,7 @@ struct elt* str_to_list(const char* str) {
 char * convert_hex(uint64_t value)
 {
     int arr[16];
-    int currValue = value;
+    uint64_t currValue = value;
     int i;    
     for(i = 0; i < 16; ++i)
     {
