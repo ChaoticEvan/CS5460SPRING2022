@@ -33,7 +33,11 @@ int main(void) {
     convert(HEX, 0xdeadbeef);
 
     convert(BIN, 2);
-    convert(BIN, 15489);
+    convert(BIN, 0xdeadbeef);
+
+    convert(OCT, 0xdeadbeef);
+
+    convert(0, 0xdeadbeef);
 
     return 0;
 }

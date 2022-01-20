@@ -239,6 +239,63 @@ char * convert_bin(uint64_t value)
     return result;
 }
 
+char * convert_oct(uint64_t value)
+{
+    int arr[24];
+    uint64_t currValue = value;
+    int i;
+    for(i = 0; i < 24; ++i)
+    {
+        int remainder = currValue % 8;
+        currValue = currValue / 8;
+        arr[i] = remainder;
+        if(currValue == 0)
+        {
+            break;
+        }      
+    }
+
+    ++i;
+
+    for(; i < 24; ++i)
+    {
+        arr[i] = 0;
+    }
+
+    char *result = malloc(24 * sizeof(char));
+    for(i = 0; i < 24; ++i)
+    {
+        switch(arr[i])
+        {
+            case 0:
+                result[i] = '0';
+                break;
+            case 1:
+                result[i] = '1';
+                break;
+            case 2:
+                result[i] = '2';
+                break;
+            case 3:
+                result[i] = '3';
+                break;
+            case 4:
+                result[i] = '4';
+                break;
+            case 5:
+                result[i] = '5';
+                break;
+            case 6:
+                result[i] = '6';
+                break;
+            case 7:
+                result[i] = '7';
+                break;
+        }
+    }
+    return result;
+}
+
 void convert(enum format_t mode, uint64_t value) {
 
     // The switch statement below gave me strage syntax erros on the HEX case.
@@ -273,6 +330,7 @@ void convert(enum format_t mode, uint64_t value) {
             putc(hexNum[i], stdout);
         }
         free(hexNum);
+        putc('\n', stdout);
     } else if(mode == BIN) {
         char *binNum = convert_bin(value);
         int i = 63;
@@ -281,8 +339,17 @@ void convert(enum format_t mode, uint64_t value) {
             putc(binNum[i], stdout);
         }
         free(binNum);
-    }
-    putc('\n', stdout);
+        putc('\n', stdout);
+    } else if(mode == OCT) {
+        char *octNum = convert_oct(value);
+        int i = 23;
+        for(; i >= 0; --i)
+        {
+            putc(octNum[i], stdout);
+        }
+        free(octNum);
+        putc('\n', stdout);
+    }    
 }
 
 void draw_u(void) {
