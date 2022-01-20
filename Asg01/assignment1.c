@@ -124,13 +124,14 @@ struct elt* str_to_list(const char* str) {
 char * convert_hex(uint64_t value)
 {
     int arr[16];
+    int currValue = value;
     int i;    
     for(i = 0; i < 16; ++i)
     {
-        int result = value / 16;
-        int remainder = value % 16;
+        int remainder = currValue % 16;
+        currValue = currValue / 16;
         arr[i] = remainder;
-        if(result == 0)
+        if(currValue == 0)
         {
             break;
         }
@@ -199,6 +200,10 @@ char * convert_hex(uint64_t value)
 }
 
 void convert(enum format_t mode, uint64_t value) {
+
+    // The switch statement below gave me strage syntax erros on the HEX case.
+    // Swapped to if statements to avoid those.
+    //
     // switch(mode)
     // {
     //     case HEX:
@@ -218,6 +223,8 @@ void convert(enum format_t mode, uint64_t value) {
     //     default:
     //         return;
     // }
+
+
     if(mode == HEX) {
         char *hexNum = convert_hex(value);
         int i = 15;
