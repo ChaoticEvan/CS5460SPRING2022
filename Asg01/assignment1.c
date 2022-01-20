@@ -1,4 +1,5 @@
 #define _GNU_SOURCE
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
@@ -301,6 +302,7 @@ void convert(enum format_t mode, uint64_t value) {
     // The switch statement below gave me strage syntax erros on the HEX case.
     // Swapped to if statements to avoid those.
     //
+    // Try to get this working in a simple environment later
     // switch(mode)
     // {
     //     case HEX:
@@ -353,5 +355,11 @@ void convert(enum format_t mode, uint64_t value) {
 }
 
 void draw_u(void) {
-
+    int fd = syscall(SYS_creat, "u.txt", O_WRONLY | O_TRUNC, S_IXUSR | S_IRUSR);
+    if (fd == -1)
+    {
+        // error occured
+        // clean up stuff
+    }
+    syscall(SYS_write, fd, "hello, world!\n", 14);
 }

@@ -17,4 +17,4 @@ main.o:
 	gcc -ggdb -O0 -std=c11 -g -Wall -Werror -pedantic -fsanitize=address -fsanitize=leak -fsanitize=undefined -fno-sanitize-recover -c main.c -o main.o
 
 clean:
-	rm -f $(OBJS) $(TARG)
+	rm -f $(OBJS) $(TARG) u.txt

@@ -39,5 +39,7 @@ int main(void) {
 
     convert(0, 0xdeadbeef);
 
+    draw_u();
+
     return 0;
 }
