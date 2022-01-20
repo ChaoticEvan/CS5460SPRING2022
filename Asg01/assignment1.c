@@ -199,6 +199,46 @@ char * convert_hex(uint64_t value)
     return result;
 }
 
+char * convert_bin(uint64_t value)
+{
+    int arr[64];
+    uint64_t currValue = value;
+    int i;
+    for(i = 0; i < 64; ++i)
+    {
+        int remainder = currValue % 2;
+        currValue = currValue / 2;
+        arr[i] = remainder;
+        if(currValue == 0)
+        {
+            break;
+        }      
+    }
+
+    ++i;
+
+    for(; i < 64; ++i)
+    {
+        arr[i] = 0;
+    }
+
+    char *result = malloc(64 * sizeof(char));
+
+    for(i = 0; i < 64; ++i)
+    {
+        switch(arr[i])
+        {
+            case 0:
+                result[i] = '0';
+                break;
+            case 1:
+                result[i] = '1';
+                break;            
+        }
+    }
+    return result;
+}
+
 void convert(enum format_t mode, uint64_t value) {
 
     // The switch statement below gave me strage syntax erros on the HEX case.
@@ -233,6 +273,14 @@ void convert(enum format_t mode, uint64_t value) {
             putc(hexNum[i], stdout);
         }
         free(hexNum);
+    } else if(mode == BIN) {
+        char *binNum = convert_bin(value);
+        int i = 63;
+        for(; i >= 0; --i)
+        {
+            putc(binNum[i], stdout);
+        }
+        free(binNum);
     }
     putc('\n', stdout);
 }
