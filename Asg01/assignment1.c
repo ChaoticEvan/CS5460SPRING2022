@@ -355,13 +355,18 @@ void convert(enum format_t mode, uint64_t value) {
 }
 
 void draw_u(void) {
-    int fd = syscall(SYS_creat, "u.txt", O_WRONLY | O_TRUNC, S_IXUSR | S_IRUSR);
+    int fd = syscall(SYS_creat, "u.txt", O_RDWR | O_TRUNC, S_IXUSR | S_IRUSR);
     if (fd == -1)
     {
-        // error occured
-        // clean up stuff
+        syscall(SYS_close, fd);
     }
-    syscall(SYS_write, fd, "| |\n", 4);
-    syscall(SYS_write, fd, "| |\n", 4);
-    syscall(SYS_write, fd, "___", 3);
+    int line1 = syscall(SYS_write, fd, "| |\n", 4);
+    int line2 = syscall(SYS_write, fd, "| |\n", 4);
+    int line3 = syscall(SYS_write, fd, "___", 3);
+
+    if((line1 == -1) | (line2 == -1) | (line3 == -1))
+    {
+        syscall(SYS_close, fd);
+    }    
+    syscall(SYS_close, fd);
 }
