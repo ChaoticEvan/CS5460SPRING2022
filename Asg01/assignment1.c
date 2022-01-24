@@ -1,3 +1,21 @@
+/*
+    B1: Before PSE is enabled %cr4 = 0x00000000
+    After PSE is enabled %cr4 = 0x00000010
+
+    B2: %esp = 0x8010b5c0
+
+    B3: name is initcode\000\000\000\000\000\000\000
+
+    B4: 64 Processes
+    The struct limits the max number of processes
+
+    B5: I used the kill command on PID 1
+
+    B6: It is changed to the ZOMBIE status
+
+    B7: The name of the process is init, and the pid is 1.
+*/
+
 #define _GNU_SOURCE
 #include <fcntl.h>
 #include <stdio.h>
