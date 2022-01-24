@@ -120,7 +120,7 @@ struct elt* str_to_list(const char* str) {
 
     int i;
     struct elt* next = NULL;
-    struct elt* curr;
+    struct elt* curr = NULL;
     for(i = size - 1; i >= 0; --i)
     {
         curr = malloc(sizeof(struct elt));
