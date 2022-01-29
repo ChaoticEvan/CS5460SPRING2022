@@ -45,6 +45,7 @@
 00000e60 sharedfd
 00005e3c randstate
 000038e1 pipe
+00003971 freemem
 00005f00 uninit
 00002970 dirfile
 000038f1 write

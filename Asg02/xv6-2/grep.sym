@@ -31,6 +31,7 @@
 00000960 malloc
 00000621 sleep
 000005a1 pipe
+00000631 freemem
 000005b1 write
 000005e9 fstat
 000005c1 kill

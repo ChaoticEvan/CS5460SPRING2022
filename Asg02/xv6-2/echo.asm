@@ -582,10 +582,12 @@ SYSCALL(uptime)
  359:	b8 0e 00 00 00       	mov    $0xe,%eax
  35e:	cd 40                	int    $0x40
  360:	c3                   	ret    
- 361:	66 90                	xchg   %ax,%ax
- 363:	66 90                	xchg   %ax,%ax
- 365:	66 90                	xchg   %ax,%ax
- 367:	66 90                	xchg   %ax,%ax
+
+00000361 <freemem>:
+SYSCALL(freemem)
+ 361:	b8 16 00 00 00       	mov    $0x16,%eax
+ 366:	cd 40                	int    $0x40
+ 368:	c3                   	ret    
  369:	66 90                	xchg   %ax,%ax
  36b:	66 90                	xchg   %ax,%ax
  36d:	66 90                	xchg   %ax,%ax

@@ -41,6 +41,7 @@
 00000330 fork1
 000009c0 nulterminate
 00000d41 pipe
+00000dd1 freemem
 00000110 getcmd
 00000d51 write
 00000d89 fstat
