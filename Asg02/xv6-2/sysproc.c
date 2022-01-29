@@ -43,6 +43,12 @@ sys_getpid(void)
 }
 
 int
+sys_freemem(void)
+{
+  return myproc()->pid;
+}
+
+int
 sys_sbrk(void)
 {
   int addr;

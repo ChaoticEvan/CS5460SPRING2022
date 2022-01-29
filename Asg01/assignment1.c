@@ -11,7 +11,7 @@
 
     B5: I used the kill command on PID 1
 
-    B6: It is changed to the ZOMBIE status
+    B6: It is changed from ZOMBIE to UNUSED status
 
     B7: The name of the process is init, and the pid is 1.
 */
