@@ -94,3 +94,30 @@ kalloc(void)
   return (char*)r;
 }
 
+int
+freemem(void)
+{
+  int freeMemBytes = 0;
+  // Acquire lock to avoid race conditions
+  if(kmem.use_lock)
+  {
+    acquire(&kmem.lock);
+  }
+
+  freeMemBytes = sizeof(kmem.freelist);
+  
+  // If integer overflowed, then return -1 as per assignment spec
+  if(freeMemBytes < 0)
+  {
+    freeMemBytes = -1;
+  }
+
+  // Release lock
+  if(kmem.use_lock)
+  {
+    release(&kmem.lock);
+  }
+  
+  return freeMemBytes;
+}
+

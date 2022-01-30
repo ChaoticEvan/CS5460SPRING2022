@@ -44,9 +44,8 @@ sys_getpid(void)
 
 int
 sys_freemem(void)
-{
-  // TODO: do the logic
-  return myproc()->pid;
+{  
+  return freemem();
 }
 
 int
