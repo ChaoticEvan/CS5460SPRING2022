@@ -104,6 +104,7 @@ freemem(void)
     acquire(&kmem.lock);
   }
 
+  // For each available page add 4096 bytes.
   struct run *r;
   r = kmem.freelist;
   while(r)
