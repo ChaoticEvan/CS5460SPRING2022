@@ -104,7 +104,13 @@ freemem(void)
     acquire(&kmem.lock);
   }
 
-  freeMemBytes = sizeof(kmem.freelist);
+  struct run *r;
+  r = kmem.freelist;
+  while(r)
+  {
+    freeMemBytes += 4096;
+    r = r->next;
+  }
   
   // If integer overflowed, then return -1 as per assignment spec
   if(freeMemBytes < 0)
