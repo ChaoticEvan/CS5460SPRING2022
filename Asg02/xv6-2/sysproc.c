@@ -112,5 +112,9 @@ sys_exit2()
 int
 sys_wait2()
 {
-  return wait();
+  char *p;
+  if(argptr(0, &p, sizeof(int)) < 0)  
+    return -1;  
+
+  return wait2((int *) p);
 }
