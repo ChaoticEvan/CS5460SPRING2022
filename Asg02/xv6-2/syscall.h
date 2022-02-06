@@ -21,3 +21,5 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 #define SYS_freemem 22
+#define SYS_exit2 23
+#define SYS_wait2 24

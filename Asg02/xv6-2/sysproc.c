@@ -95,3 +95,22 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_exit2()
+{
+  // get arg
+  int exit_status;
+
+  if(argint(0, &exit_status) < 0)
+    return -1;
+
+  exit2(exit_status);  
+  return 0;  // not reached
+}
+
+int
+sys_wait2()
+{
+  return wait();
+}
