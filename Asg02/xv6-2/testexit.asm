@@ -22,8 +22,6 @@ main(int argc, char *argv[])
   11:	e8 a3 02 00 00       	call   2b9 <fork>
   int exit_status = 0;
   16:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
-  // printf(1, "%x", &exit_status);
-  // printf(1, "\n");
   if(pid == 0)
   1d:	85 c0                	test   %eax,%eax
   1f:	75 0a                	jne    2b <main+0x2b>

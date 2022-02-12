@@ -9,8 +9,6 @@ main(int argc, char *argv[])
 {
   pid_t pid = fork();
   int exit_status = 0;
-  // printf(1, "%x", &exit_status);
-  // printf(1, "\n");
   if(pid == 0)
   {
     exit2(-1);

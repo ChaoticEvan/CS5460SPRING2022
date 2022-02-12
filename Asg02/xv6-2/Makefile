@@ -183,6 +183,7 @@ UPROGS=\
 	_zombie\
 	_freemem\
 	_testexit\
+	_crc32\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
