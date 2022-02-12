@@ -108,5 +108,6 @@ main(int argc, char *argv[])
   }
 
   printf(1, "%x\n", crc32(0, buffer, st.size));
+
   exit();
 }
