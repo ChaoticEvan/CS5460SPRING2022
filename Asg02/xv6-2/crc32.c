@@ -96,6 +96,9 @@ main(int argc, char *argv[])
 {
   int fd;
   struct stat st;
+  struct dirent de;
+  char *p, buffer[512];
+
   if(argc != 2){
 	printf(1, "ERROR: crc32 does not have the correct amount of arguments\n");
     exit2(-1);
@@ -117,7 +120,26 @@ main(int argc, char *argv[])
 		crcFile(fd, &st, argv[1]);
 		break;
 	
-	default:
+	case T_DIR:
+	    if(strlen(argv[1]) + 1 + DIRSIZ + 1 > sizeof buffer){
+			printf(1, "CRC32: path too long\n");
+			break;
+		}
+		strcpy(buffer, argv[1]);
+		p = buffer+strlen(buffer);
+		*p++ = '/';
+		while(read(fd, &de, sizeof(de) == sizeof(de))) {
+			if(de.inum == 0) {
+				continue;
+			}
+			memmove(p, de.name, DIRSIZ);
+			p[DIRSIZ] = 0;
+			if(stat(buffer, &st) < 0) {
+				printf(1, "crc32: cannot stat %s\n", buffer);
+				continue;
+			}
+			printf(1, "%x\n", crc32(0, &de, st.size));
+		}
 		break;
   }
   exit();
