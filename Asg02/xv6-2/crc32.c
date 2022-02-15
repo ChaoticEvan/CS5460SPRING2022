@@ -78,14 +78,24 @@ unsigned long crc32(unsigned long crc, const void *buf, unsigned long size)
 	return crc ^ ~0U;
 }
 
+void
+crcFile(int fd, struct stat* st, char* path) {
+  char* buffer = malloc(st->size);
+  if(read(fd, buffer, st->size) < 0)
+  {
+	  printf(1, "ERROR: Could not read file %s\n", path);
+	  close(fd);
+	  exit2(-1);
+  }
+
+  printf(1, "%x\n", crc32(0, buffer, st->size));
+}
+
 int
 main(int argc, char *argv[])
 {
   int fd;
-  char buffer[512], *p;
-  struct dirent de;
   struct stat st;
-
   if(argc != 2){
 	printf(1, "ERROR: crc32 does not have the correct amount of arguments\n");
     exit2(-1);
@@ -101,61 +111,14 @@ main(int argc, char *argv[])
     close(fd);
     exit2(-1);
   }
-
-  switch(st.type) {
-	case T_FILE:
-	    if(read(fd, buffer, st.size) < 0) {
-			printf(1, "ERROR: Could not read file %s\n", argv[1]);
-			close(fd);
-			exit2(-1);
-		}
-
-	    printf(1, "%x\n", crc32(0, buffer, st.size));
-		break;
-	case T_DIR:
-		if(strlen(argv[1]) + 1 + DIRSIZ + 1 > sizeof buffer){
-			printf(1, "crc32: path too long\n");
-			break;
-		}
-		strcpy(buffer, argv[1]);
-		p = buffer + strlen(buffer);
-		*p++ = '/';
-		while(read(fd, &de, sizeof(de)) == sizeof(de)){
-			if(de.inum == 0) {
-				continue;
-			}
-			memmove(p, de.name, DIRSIZ);
-			p[DIRSIZ] = 0;
-			if(stat(buffer, &st) < 0){
-				printf(1, "ls: cannot stat %s\n", buffer);
-				continue;
-			}
-
-			int currFd = -1;
-			struct stat currSt;
-			char currBuffer[512];
-			if((currFd = open(buffer, 0)) < 0){
-				printf(1, "crc32: cannot open %s\n", buffer);
-				exit2(-1);
-			} 
-
-			if(fstat(currFd, &currSt) < 0){
-				printf(2, "crc32: cannot stat %s\n", buffer);
-				close(fd);
-				exit2(-1);
-			}
-
-			if(read(currFd, currBuffer, currSt.size) < 0) {
-				printf(1, "ERROR: Could not read file %s\n", argv[1]);
-				close(fd);
-				exit2(-1);
-			}
-
-			printf(1, "%x\n", crc32(0, currBuffer, currSt.size));			
-		}
-		break;	
-  }
   
-  close(fd);
+  switch (st.type) {
+	case T_FILE:
+		crcFile(fd, &st, argv[1]);
+		break;
+	
+	default:
+		break;
+  }
   exit();
 }
