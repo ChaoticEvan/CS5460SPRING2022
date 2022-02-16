@@ -129,16 +129,23 @@ main(int argc, char *argv[])
 		p = buffer+strlen(buffer);
 		*p++ = '/';
 		while(read(fd, &de, sizeof(de) == sizeof(de))) {
-			if(de.inum == 0) {
-				continue;
+			int pid, exitStatus;
+			pid = fork();
+			if(pid == 0) {
+				if(de.inum == 0) {
+					continue;
+				}
+				memmove(p, de.name, DIRSIZ);
+				p[DIRSIZ] = 0;
+				if(stat(buffer, &st) < 0) {
+					printf(1, "crc32: cannot stat %s\n", buffer);
+					continue;
+				}
+				printf(1, "%x\n", crc32(0, &de, st.size));
+			} else {
+				wait2(&exitStatus);
 			}
-			memmove(p, de.name, DIRSIZ);
-			p[DIRSIZ] = 0;
-			if(stat(buffer, &st) < 0) {
-				printf(1, "crc32: cannot stat %s\n", buffer);
-				continue;
-			}
-			printf(1, "%x\n", crc32(0, &de, st.size));
+			
 		}
 		break;
   }
